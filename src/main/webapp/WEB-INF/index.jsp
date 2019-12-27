@@ -4,7 +4,7 @@
     <title>Index</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/index/abra" method="post">
+<form action="${pageContext.request.contextPath}/index/page2" method="post">
     <div class="container">
         <label for="q"><b>Query</b></label>
         <input type="text" placeholder="Enter uri" name="q" required>

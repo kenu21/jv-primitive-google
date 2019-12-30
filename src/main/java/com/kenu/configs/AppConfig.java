@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -17,17 +16,16 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com.kenu.repositories")
 @EnableTransactionManagement
-@ComponentScans(value = {
-        @ComponentScan("com.kenu.service")
-})
+@ComponentScan("com.kenu.service")
 public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+        DataSource build = builder.setType(EmbeddedDatabaseType.H2).build();
+        return build;
     }
 
     @Bean
@@ -38,7 +36,7 @@ public class AppConfig {
         LocalContainerEntityManagerFactoryBean factory =
                 new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.kenu.repositories");
+        factory.setPackagesToScan("com.kenu.entities");
         factory.setDataSource(dataSource());
         return factory;
     }

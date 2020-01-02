@@ -1,5 +1,6 @@
 package com.kenu.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,8 @@ public class Page {
 
     private String uri;
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String body;
 
     public Page(String uri, String title, String body) {

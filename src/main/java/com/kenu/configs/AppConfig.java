@@ -1,5 +1,6 @@
 package com.kenu.configs;
 
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -22,14 +23,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class AppConfig {
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws NamingException {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        DataSource build = builder.setType(EmbeddedDatabaseType.H2).build();
-        return build;
+        return builder.setType(EmbeddedDatabaseType.H2).build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
 

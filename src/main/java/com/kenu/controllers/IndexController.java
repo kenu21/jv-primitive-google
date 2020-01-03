@@ -3,7 +3,6 @@ package com.kenu.controllers;
 import com.kenu.service.PageService;
 
 import java.io.IOException;
-import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,7 @@ public class IndexController {
     @PostMapping("/page2")
     public String submit(@RequestParam("q") String uri,
                          @RequestParam("level") Integer level) throws IOException {
-        pageService.index(uri, level, new HashSet<String>());
+        pageService.index(uri, level);
         return "page2";
     }
 }

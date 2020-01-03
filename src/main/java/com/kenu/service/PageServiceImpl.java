@@ -4,6 +4,7 @@ import com.kenu.entities.Page;
 import com.kenu.repositories.PageRepository;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 import lombok.SneakyThrows;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,7 +36,13 @@ public class PageServiceImpl implements PageService {
             return null;
         }
 
-        Document doc = Jsoup.connect(uri).get();
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(uri).get();
+        } catch (MalformedURLException | HttpStatusException e) {
+            return null;
+        }
+
         Elements links = doc.select("a[href]");
 
         if (level > 0) {
